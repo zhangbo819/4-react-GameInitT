@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/zhangbo819/4-react-GameInitT/issues"
   },
-  "homepage": "https://github.com/zhangbo819/4-react-GameInitT#readme"
+  "homepage": "https://github.com/zhangbo819/4-react-GameInitT#readme",
+  "devDependencies": {
+    "webpack": "^4.29.6"
+  }
 }
