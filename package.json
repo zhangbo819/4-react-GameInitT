@@ -1,0 +1,19 @@
+{
+  "name": "4-react-gameinitt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangbo819/4-react-GameInitT.git"
+  },
+  "author": "zzb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhangbo819/4-react-GameInitT/issues"
+  },
+  "homepage": "https://github.com/zhangbo819/4-react-GameInitT#readme"
+}
