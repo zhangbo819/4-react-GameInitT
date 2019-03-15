@@ -1,7 +1,9 @@
-// import './Resource/react';
-// import './Resource/react-dom';
-import './Resource/browser.min.js'
-import './Resource/react.js';  
-import './Resource/react-dom.js'; 
+import "babel-polyfill";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './app';
 
-console.log('init ********')
+ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+);

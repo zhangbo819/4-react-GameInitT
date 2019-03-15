@@ -4,7 +4,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-    entry: { app: './src/index.js' },
+    entry: { 
+        app: ['babel-polyfill', './src/index.js']
+     },
     devServer: {
         contentBase: './dist',
         hot: true
@@ -22,4 +24,12 @@ module.exports = {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
+    module: {
+        rules: [
+            {
+                test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"
+                // test 符合此正则规则的文件，运用 loader 去进行处理，除了exclude 中指定的内容
+            }
+        ]
+    }
 };
