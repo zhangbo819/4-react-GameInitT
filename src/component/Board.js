@@ -7,17 +7,18 @@ export default class Board extends Component {
 
         this.state = {
             squares: Array(9).fill(null),
-            xIsNext: true
+            xIsNext: true,
         }
+        this.gameover = false;
     }
 
     componentDidUpdate() {
         //判断输赢
-        var result =
-            this.calculateWinner(this.state.squares);
-        console.log(result);
+        var result = this.calculateWinner(this.state.squares);
+
         if (result) {
             alert(result + "赢了");
+            this.gameover = true;
         } else {
             //如何算平局？旗子下完了 没有赢家
             if (this.state.squares.indexOf(null) == -1) {
@@ -51,13 +52,14 @@ export default class Board extends Component {
 
     //定义一个方法，将状态中的squares数组中的第index位置的元素修改为x或者o （根据xIsNext做判断）
     modifyState = (index) => {
+        if (this.gameover) return;
         var nowList = this.state.squares;
-        if (this.state.xIsNext) {
-            nowList[index] = 'X';
+        if (!nowList[index]) {
+            nowList[index] = this.state.xIsNext ? 'X' : 'O';
+        } else {
+            alert('玩赖了 熊迪')
         }
-        else {
-            nowList[index] = 'O';
-        }
+
         this.setState({ squares: nowList });
 
         var nowNext = this.state.xIsNext;
@@ -71,25 +73,38 @@ export default class Board extends Component {
             index={i} />;
     }
 
+    handleClick = () => {
+        this.setState({
+            squares: Array(9).fill(null)
+        }, () => {
+            this.gameover = false
+        })
+    }
+
     render() {
         return (
-            <div>
-                <div className="status">{status}</div>
-                <div className="board-row">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
+            <div className="BoardBg">
+                <div>
+                    <div className="status">{status}</div>
+                    <div className="board-row">
+                        {this.renderSquare(0)}
+                        {this.renderSquare(1)}
+                        {this.renderSquare(2)}
+                    </div>
+                    <div className="board-row">
+                        {this.renderSquare(3)}
+                        {this.renderSquare(4)}
+                        {this.renderSquare(5)}
+                    </div>
+                    <div className="board-row">
+                        {this.renderSquare(6)}
+                        {this.renderSquare(7)}
+                        {this.renderSquare(8)}
+                    </div>
                 </div>
-                <div className="board-row">
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
+                <button onClick={this.handleClick} className='again'>
+                    {'重新开始'}
+                </button>
             </div>
         );
     }

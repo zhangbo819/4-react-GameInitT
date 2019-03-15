@@ -4,7 +4,7 @@ import Board from './component/Board';
 class App extends Component {
     render() {
         return (
-            <div className="game">
+            <div className="game BoardBg">
                 <div className="game-board">
                     <Board />
                 </div>
