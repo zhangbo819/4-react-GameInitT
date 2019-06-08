@@ -17,8 +17,10 @@ export default class Board extends Component {
         var result = this.calculateWinner(this.state.squares);
 
         if (result) {
-            alert(result + "赢了");
             this.gameover = true;
+            setTimeout(() => {
+                alert(result + "赢了");
+            }, 100)
         } else {
             //如何算平局？旗子下完了 没有赢家
             if (this.state.squares.indexOf(null) == -1) {
@@ -70,7 +72,8 @@ export default class Board extends Component {
         return <Square
             myList={this.state.squares}
             funcModify={this.modifyState}
-            index={i} />;
+            index={i}
+        />;
     }
 
     handleClick = () => {
@@ -85,7 +88,8 @@ export default class Board extends Component {
         return (
             <div className="BoardBg">
                 <div>
-                    <div className="status">{status}</div>
+                    {/* to do status */}
+                    {/* <div className="status">{status}</div> */}
                     <div className="board-row">
                         {this.renderSquare(0)}
                         {this.renderSquare(1)}
