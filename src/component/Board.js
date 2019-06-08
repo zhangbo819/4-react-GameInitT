@@ -80,18 +80,12 @@ export default class Board extends Component {
 
     //定义一个方法，将状态中的squares数组中的第index位置的元素修改为x或者o （根据xIsNext做判断）
     modifyState = (index) => {
-        if (this.gameover) return;
-        var nowList = this.state.squares;
-        if (!nowList[index]) {
-            nowList[index] = this.state.xIsNext ? 'X' : 'O';
-        } else {
-            alert('玩赖了 熊迪')
-        }
+        const { squares, xIsNext } = this.state;
+        if (this.gameover || squares[index]) return;
 
-        this.setState({ squares: nowList });
+        squares[index] = xIsNext ? 'X' : 'O';
 
-        var nowNext = this.state.xIsNext;
-        this.setState({ xIsNext: !nowNext });
+        this.setState({ squares, xIsNext: !xIsNext });
     }
 
     getModifyState = (index) => {
