@@ -8,8 +8,18 @@ export default class Board extends Component {
         this.state = {
             squares: Array(9).fill(null),
             xIsNext: true,
+            clientWidth: document.body.clientWidth
         }
         this.gameover = false;
+        this.arrModifyState = [];
+    }
+
+    componentDidMount() {
+        // 监听浏览器宽度
+        // 防抖 100毫秒
+        window.onresize = this.debounce(() => {
+            this.setState({ clientWidth: document.body.clientWidth })
+        }, 100)
     }
 
     componentDidUpdate() {
@@ -27,6 +37,22 @@ export default class Board extends Component {
                 //旗子下完了
                 alert('平局');
             }
+        }
+    }
+
+    // 防抖函数
+    debounce(fn, wait) {
+        this.timer = null;
+        return function () {
+            var context = this;
+            var args = arguments;
+            if (this.timer) {
+                clearTimeout(timer);
+                this.timer = null;
+            }
+            this.timer = setTimeout(function () {
+                fn.apply(context, args)
+            }, wait)
         }
     }
 
@@ -68,11 +94,20 @@ export default class Board extends Component {
         this.setState({ xIsNext: !nowNext });
     }
 
+    getModifyState = (index) => {
+        if (!this.arrModifyState[index]) {
+            this.arrModifyState[index] = this.modifyState.bind(this, index)
+        }
+
+        return this.arrModifyState[index];
+    }
+
     renderSquare = (i) => {
+        const { clientWidth, squares } = this.state;
         return <Square
-            myList={this.state.squares}
-            funcModify={this.modifyState}
-            index={i}
+            title={squares[i]}
+            funcModify={this.getModifyState(i)}
+            clientWidth={clientWidth}
         />;
     }
 
@@ -85,6 +120,10 @@ export default class Board extends Component {
     }
 
     render() {
+        const { clientWidth } = this.state;
+
+        const fontSize = Math.ceil(clientWidth / 1240 * 40);
+
         return (
             <div className="BoardBg">
                 <div>
@@ -106,7 +145,7 @@ export default class Board extends Component {
                         {this.renderSquare(8)}
                     </div>
                 </div>
-                <button onClick={this.handleClick} className='again'>
+                <button onClick={this.handleClick} className='again' style={{ fontSize }}>
                     {'重新开始'}
                 </button>
             </div>
