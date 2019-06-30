@@ -5,7 +5,7 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: { 
-        app: ['babel-polyfill', './src/index.js']
+        app: ['babel-polyfill', './index.js']
      },
     devServer: {
         contentBase: './dist',
